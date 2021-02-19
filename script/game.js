@@ -3,7 +3,7 @@ function getRandomInt(min, max) {
 }
 
 function computerPlay() {
-    const choices = ["Rock", "Paper", "Scissors"];
+    const choices = ["rock", "paper", "scissors"];
     return choices[getRandomInt(0, 2)];
 }
 
@@ -29,22 +29,6 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function getPlayerChoice() {
-    const choices = ["rock", "paper", "scissors"];
-    let playerChoice = prompt("Make your choice (type in rock, paper or scissors):");
-    playerChoice = playerChoice.toLocaleLowerCase();
-    let isInputValid = false;
-    while (!isInputValid) {
-        if (playerChoice === undefined || !choices.includes(playerChoice)) {
-            playerChoice = prompt("Invalid input, try again (type in rock, paper or scissors):");
-            playerChoice = playerChoice.toLocaleLowerCase();
-        } else {
-            isInputValid = true;
-        }
-    }
-    return playerChoice;
-}
-
 function printScore(scoreBoard) {
     return `Current score:
     Player: ${scoreBoard.playerScore}
@@ -52,39 +36,58 @@ function printScore(scoreBoard) {
     Rounds played: ${scoreBoard.round}`;
 }
 
-function game(numberOfRounds = 5) {
-    let scoreBoard = {
-        playerScore: 0,
-        computerScore: 0,
-        round: 0
-    }
+let scoreBoard = {
+    playerScore: 0,
+    computerScore: 0,
+    round: 0
+}
 
-    console.log(`Playing ${numberOfRounds} rounds.`);
+function resetScoreBoard() {
+    scoreBoard.playerScore = 0;
+    scoreBoard.computerScore = 0;
+    scoreBoard.round = 0;
+}
 
-    for (let currentRound = 1; currentRound <= numberOfRounds; currentRound++) {
-        let playerSelection = getPlayerChoice();
-        let computerSelection = computerPlay();
-        let roundResult = playRound(playerSelection, computerSelection);
-        if (roundResult[1] === 1) {
-            console.log(roundResult[0]);
-            scoreBoard.playerScore += 1;
-        } else if (roundResult[1] === -1) {
-            console.log(roundResult[0]);
-            scoreBoard.computerScore += 1;
-        } else {
-            console.log(roundResult[0]);
-        }
-        scoreBoard.round += 1;
-        console.log(printScore(scoreBoard));
-    }
-
-    if (scoreBoard.playerScore > scoreBoard.computerScore) {
-        console.log(`You win the game of ${numberOfRounds} round(s).`);
-    } else if (scoreBoard.playerScore < scoreBoard.computerScore) {
-        console.log(`You lost, AI takes over the world because of you!`);
+function updateScore(roundResult) {
+    if (roundResult[1] === 1) {
+        console.log(roundResult[0]);
+        scoreBoard.playerScore += 1;
+    } else if (roundResult[1] === -1) {
+        console.log(roundResult[0]);
+        scoreBoard.computerScore += 1;
     } else {
-        console.log(`It's a tie after ${numberOfRounds} round(s).`);
+        console.log(roundResult[0]);
+    }
+    scoreBoard.round += 1;
+    console.log(printScore(scoreBoard));
+    if (scoreBoard.playerScore == 5) {
+        console.log(`You win the game of ${scoreBoard.round} round(s).`);
+        resetScoreBoard();
+    } else if (scoreBoard.computerScore == 5) {
+        console.log(`You lost, AI takes over the world because of you!`);
+        resetScoreBoard();
     }
 }
 
-game();
+function displayScore() {
+    const scoreField = document.querySelector('.container__scoreboard');
+    scoreField.textContent = `The score ${scoreBoard.playerScore} : ${scoreBoard.computerScore}`;
+}
+
+function displayRoundResult(roundResult) {
+    const resultField = document.querySelector('.container__result');
+    resultField.textContent = roundResult[0];
+}
+
+function buttonClick(e) {
+    const playerChoice = this.dataset.choice;
+    const computerChoice = computerPlay();
+    let roundResult = playRound(playerChoice, computerChoice);
+    displayRoundResult(roundResult);
+    updateScore(roundResult);
+    displayScore();
+}
+
+const buttons = Array.from(document.querySelector(".container__buttons").children);
+buttons.forEach(btn => btn.addEventListener("click", buttonClick));
+
