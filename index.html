@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <head>
         <title>Rock Paper Scissors</title>
         <link rel="stylesheet" href="style/reset.css">
@@ -9,20 +10,20 @@
     <body>
         <div class="container">
             <div class="container__game">
-                <h3>Rock Paper Scissors</h3>
-                <p>Check dev tools console....</p>
-                <div class="container__scoreboard">The score 0 : 0</div> 
+                <h1>Rock Paper Scissors</h1>
+                <div class="container__scoreboard">
+                    <p>0 - 0</p>
+                </div> 
                 <div class="container__result">
-
+                    <p></p>
                 </div>              
                 <div class="container__buttons">
-                    <div class="container__button-rock" data-choice="rock">ROCK</div>
-                    <div class="container__button-paper" data-choice="paper">PAPER</div>
-                    <div class="container__button-scissors" data-choice="scissors">SCISSORS</div>
+                    <div class="container__button-rock" data-choice="rock"><img src="img/rock-icon.png" width="50" height="50"></div>
+                    <div class="container__button-paper" data-choice="paper"><img src="img/paper-icon.png" width="50" height="50"></div>
+                    <div class="container__button-scissors" data-choice="scissors"><img src="img/scissors-icon.png" width="50" height="50"></div>
                 </div>
             </div>
         </div>
-
         <script src="script/game.js"></script>      
     </body>
 </html>

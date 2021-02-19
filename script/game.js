@@ -37,13 +37,6 @@
         }
     }
     
-    function printScore(scoreBoard) {
-        return `Current score:
-        Player: ${scoreBoard.playerScore}
-        Computer: ${scoreBoard.computerScore}
-        Rounds played: ${scoreBoard.round}`;
-    }
-    
     function resetScoreBoard() {
         scoreBoard.playerScore = 0;
         scoreBoard.computerScore = 0;
@@ -52,40 +45,35 @@
     
     function updateScore(roundResult) {
         if (roundResult[1] === 1) {
-            console.log(roundResult[0]);
             scoreBoard.playerScore += 1;
         } else if (roundResult[1] === -1) {
-            console.log(roundResult[0]);
             scoreBoard.computerScore += 1;
-        } else {
-            console.log(roundResult[0]);
         }
         scoreBoard.round += 1;
-        console.log(printScore(scoreBoard));
         if (scoreBoard.playerScore == 5) {
-            console.log(`You win the game of ${scoreBoard.round} round(s).`);
+            displayRoundResult(`You win the game of ${scoreBoard.round} round(s).`);
             resetScoreBoard();
         } else if (scoreBoard.computerScore == 5) {
-            console.log(`You lost, AI takes over the world because of you!`);
+            displayRoundResult(`You lost, AI takes over the world because of you!`);
             resetScoreBoard();
         }
     }
     
     function displayScore() {
-        const scoreField = document.querySelector('.container__scoreboard');
-        scoreField.textContent = `The score ${scoreBoard.playerScore} : ${scoreBoard.computerScore}`;
+        const scoreField = document.querySelector('.container__scoreboard p');
+        scoreField.textContent = `${scoreBoard.playerScore} - ${scoreBoard.computerScore}`;
     }
     
     function displayRoundResult(roundResult) {
-        const resultField = document.querySelector('.container__result');
-        resultField.textContent = roundResult[0];
+        const resultField = document.querySelector('.container__result p');
+        resultField.textContent = roundResult;
     }
     
     function buttonClick(e) {
         const playerChoice = this.dataset.choice;
         const computerChoice = computerPlay();
         let roundResult = playRound(playerChoice, computerChoice);
-        displayRoundResult(roundResult);
+        displayRoundResult(roundResult[0]);
         updateScore(roundResult);
         displayScore();
     }

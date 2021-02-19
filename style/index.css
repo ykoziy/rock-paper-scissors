@@ -7,8 +7,17 @@ html {
 	box-sizing: inherit;
 }
 
+:root {
+    --primaryFont: "Comfortaa";
+    --baseFontSize: 1rem;
+	--hugeFontSize: 6rem;
+	--baseMobileFontSize: 1.12rem;
+}
+
 body {
 	min-height: 100%;
+	font-family: var(--primaryFont);
+	font-size: var(--baseFontSize);
 }
 
 .container {
@@ -17,7 +26,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
-	background-color: lightgray;
+	background-color: #e8e1e0;
 	width: 100%;
 	height: 100vh;
 }
@@ -25,49 +34,71 @@ body {
 .container__game {
 	display: flex;
 	flex-direction: column;
+	text-align:center;
+	border: 3px solid lightcoral;
+	box-shadow: 0px 0px 3px 4px rgba(0,0,0,0.54);
+	border-radius: 20px;
+	width: 500px;
 }
 
 .container__scoreboard {
 	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: var(--hugeFontSize);
 }
 
 .container__result {
-	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+	border-top: 5px solid lightcoral;
+	border-bottom: 5px solid lightcoral;
 }
 
 .container__buttons {
 	display: flex;
 	justify-content: space-around;
-	width: 500px;
+	margin: 20px;
 }
 
 .container__buttons > *:hover {
-	background-color: burlywood;
-	border: 5px solid black;
+	box-shadow: 0px 10px 13px -7px #000000, 0px 0px 3px 4px rgba(0,0,0,0);
+	border: 5px solid rgb(81, 83, 81);
 }
 
 .container__buttons > * {
-	text-align: center;
-	vertical-align: middle;
-	line-height: 90px;
+	display: flex;
+	justify-content: center;
+	align-items: center;	
 	border: 5px solid black;
 	border-radius: 35px;
-}
-
-.container__button-rock {
 	width: 100px;
 	height: 100px;
-	background-color: blanchedalmond;
+	background-color: #fdf1f0;	
 }
 
-.container__button-paper {
-	width: 100px;
-	height: 100px;
-	background-color: blanchedalmond;
-}
+@media screen and (max-width: 768px) {
+	body {
+		font-size: var(--baseMobileFontSize);
+	}
 
-.container__button-scissors {
-	width: 100px;
-	height: 100px;
-	background-color: blanchedalmond;
+	.container__game {
+		width: 300px;
+	}
+
+	.container__buttons > * {
+		border: 4px solid black;
+		border-radius: 25px;
+		width: 80px;
+		height: 80px;
+	}
+
+	.container__buttons {
+		justify-content: space-between;
+		margin: 5px;
+	}	
+	
 }
