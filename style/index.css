@@ -73,6 +73,8 @@ body {
 
 .container__buttons {
 	display: flex;
+	justify-content: space-around;
+	width: 500px;
 }
 
 .container__buttons > *:hover {
